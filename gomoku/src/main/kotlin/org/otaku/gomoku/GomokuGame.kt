@@ -50,7 +50,7 @@ class GomokuGame {
         checkStatus(GameStatus.PLAYER2_ROUND)
         chessBoard.setChessman(row, col, player2.getChessman())
         if (chessBoard.getWinChessman() != null) {
-            status = GameStatus.PLAYER2_ROUND
+            status = GameStatus.PLAYER2_WIN
             return
         }
         if (chessBoard.isFull()) {
