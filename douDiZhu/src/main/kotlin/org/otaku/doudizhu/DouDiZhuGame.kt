@@ -13,8 +13,22 @@ class DouDiZhuGame {
     //游戏状态
     private var status = GameStatus.INIT
     //三个玩家
-    private val player1 = Player()
-    private val player2 = Player()
-    private val player3 = Player()
+    private val players = ArrayList<Player>()
+    //玩家轮次
+    private var round = -1
+    //选地主投票
+    private val votes = HashMap<Int, Int>()
+
+    //发牌，发完牌进入抢地主环节
+    fun dealCards() {
+
+    }
+
+    //投票
+    fun voteForLandlord(playerNo: Int, vote: Vote) {
+
+    }
+
+    //发牌
 
 }

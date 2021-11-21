@@ -5,7 +5,7 @@ package org.otaku.doudizhu
  * @param symbol 代表这个牌的标志
  * @param weight 权重
  */
-enum class CardType(val symbol: String, val weight: Int) {
+enum class CardSymbol(val symbol: String, val weight: Int) {
     THREE("3", 3),
     FOUR("4", 4),
     FIVE("5", 5),
