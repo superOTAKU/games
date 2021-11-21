@@ -6,7 +6,7 @@ import org.otaku.doudizhu.PlayCard
 /**
  * 单张牌型
  */
-class SinglePlay(private val card: Card): PlayCard(1, listOf(card)) {
+class SinglePlay(private val card: Card): PlayCard(1, setOf(card)) {
 
     override fun isSameCardType(other: PlayCard): Boolean {
         return javaClass == other.javaClass

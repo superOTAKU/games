@@ -3,7 +3,7 @@ package org.otaku.doudizhu
 import java.lang.IllegalArgumentException
 
 //一次出牌，需要整理出所有的牌型，实现牌型
-abstract class PlayCard(val priority: Int, val cards: List<Card>): Comparable<PlayCard> {
+abstract class PlayCard(val priority: Int, val cards: Set<Card>): Comparable<PlayCard> {
 
     //是否可比，优先级不同，可以比；牌型相同，可以比；其他情况不能比
     fun isComparableTo(other: PlayCard): Boolean {
