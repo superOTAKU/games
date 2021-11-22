@@ -5,24 +5,17 @@ import org.otaku.doudizhu.CardSymbol
 import org.otaku.doudizhu.PlayCard
 import java.util.*
 
-//连队或者连续的三个
-abstract class ContinuePlay(cards: Set<Card>, continueCount: Int): PlayCard(1, cards) {
+//飞机不带翅膀，和连队规则基本是一样的
+class AirPlane(cards: Set<Card>): PlayCard(1, cards) {
     private var count = 0
     private var weight = 0
     init {
-        assert(cards.isNotEmpty())
+        //不能包含2，大小王
+        assert(cards.none { it.symbol.number < 0 })
         val symbolToCards = TreeMap<CardSymbol, MutableList<Card>>(compareBy { it.number })
         cards.groupByTo(symbolToCards) { it.symbol }
-        assert(symbolToCards.all { it.value.size == continueCount })
-        var lastNumber: Int? = null
-        for (symbol in symbolToCards.keys) {
-            if (lastNumber == null) {
-                lastNumber = symbol.number
-                continue
-            }
-            assert(symbol.number - lastNumber == 1)
-            lastNumber = symbol.number
-        }
+        assert(symbolToCards.size >= 2 && symbolToCards.values.all { it.size == 3 })
+        assert(PlayCardUtil.isSymbolsOrder(symbolToCards.keys))
         count = symbolToCards.size
         weight = symbolToCards.keys.maxOf { it.number }
     }
@@ -31,12 +24,12 @@ abstract class ContinuePlay(cards: Set<Card>, continueCount: Int): PlayCard(1, c
         if (javaClass != other.javaClass) {
             return false
         }
-        val otherCP = other as ContinuePlay
-        return count == otherCP.count
+        val otherObj = other as AirPlane
+        return count == otherObj.count
     }
 
     override fun sameCardTypeCompare(other: PlayCard): Int {
-        val otherCP = other as ContinuePlay
+        val otherCP = other as AirPlane
         return weight - otherCP.weight
     }
 }
