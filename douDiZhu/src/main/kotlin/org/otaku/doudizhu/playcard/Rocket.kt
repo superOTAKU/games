@@ -3,18 +3,17 @@ package org.otaku.doudizhu.playcard
 import org.otaku.doudizhu.Card
 import org.otaku.doudizhu.PlayCard
 
-/**
- * 单张牌型
- */
-class SinglePlay(private val card: Card): PlayCard(1, setOf(card)) {
+class Rocket(cards: Set<Card>):PlayCard(3, cards) {
+    init {
+        assert(cards.size == 2 && cards.all { it.symbol.isJoker() })
+    }
 
     override fun isSameCardType(other: PlayCard): Boolean {
         return javaClass == other.javaClass
     }
 
+    //不可能有兩個火箭，所以火箭就是最大的
     override fun sameCardTypeCompare(other: PlayCard): Int {
-        val otherSingle = other as SinglePlay
-        return card.symbol.weight - otherSingle.card.symbol.weight
+        return 1
     }
-
 }
