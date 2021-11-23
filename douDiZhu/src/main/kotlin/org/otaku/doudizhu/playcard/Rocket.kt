@@ -5,7 +5,7 @@ import org.otaku.doudizhu.PlayCard
 
 class Rocket(cards: Set<Card>):PlayCard(3, cards) {
     init {
-        assert(cards.size == 2 && cards.all { it.symbol.isJoker() })
+        require(cards.size == 2 && cards.all { it.symbol.isJoker() })
     }
 
     override fun isSameCardType(other: PlayCard): Boolean {

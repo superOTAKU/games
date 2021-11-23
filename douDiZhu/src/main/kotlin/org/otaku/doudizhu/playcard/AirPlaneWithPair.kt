@@ -11,14 +11,14 @@ class AirPlaneWithPair(cards: Set<Card>): PlayCard(1, cards) {
     private var count = 0
 
     init {
-        assert(cards.none { it.symbol.number < 0 })
+        require(cards.none { it.symbol.number < 0 })
         val symbolToCards = TreeMap<CardSymbol, MutableList<Card>>(compareBy { it.number })
         cards.groupByTo(symbolToCards) { it.symbol }
         val tuples = symbolToCards.filter { it.value.size == 3 }
         val singles = symbolToCards.filter { it.value.size == 2 }
-        assert(symbolToCards.size >= 4 && tuples.size == singles.size && symbolToCards.size == tuples.size + singles.size)
+        require(symbolToCards.size >= 4 && tuples.size == singles.size && symbolToCards.size == tuples.size + singles.size)
         //是否按顺序
-        assert(PlayCardUtil.isSymbolsOrder(tuples.keys))
+        require(PlayCardUtil.isSymbolsOrder(tuples.keys))
         count = tuples.size
         weight = tuples.keys.maxOf { it.number }
     }

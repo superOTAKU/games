@@ -6,7 +6,11 @@ import org.otaku.doudizhu.PlayCard
 /**
  * 单张牌型
  */
-class Single(private val card: Card): PlayCard(1, setOf(card)) {
+class Single(cards: Set<Card>): PlayCard(1, cards) {
+
+    init {
+        require(cards.size == 1)
+    }
 
     override fun isSameCardType(other: PlayCard): Boolean {
         return javaClass == other.javaClass
@@ -14,7 +18,7 @@ class Single(private val card: Card): PlayCard(1, setOf(card)) {
 
     override fun sameCardTypeCompare(other: PlayCard): Int {
         val otherSingle = other as Single
-        return card.symbol.weight - otherSingle.card.symbol.weight
+        return cards.first().symbol.weight - otherSingle.cards.first().symbol.weight
     }
 
 }

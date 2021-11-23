@@ -13,11 +13,11 @@ class Straight(cards: Set<Card>):PlayCard(1, cards) {
     private var weight = 0
 
     init {
-        assert(cards.none {it.symbol.number < 0})
-        assert(cards.size >= 5)
+        require(cards.none {it.symbol.number < 0})
+        require(cards.size >= 5)
         val symbolToCars = TreeMap<CardSymbol, MutableList<Card>>(compareBy{it.number})
         cards.groupByTo(symbolToCars) {it.symbol}
-        assert(symbolToCars.all { it.value.size == 1 })
+        require(symbolToCars.all { it.value.size == 1 })
         PlayCardUtil.isSymbolsOrder(symbolToCars.keys)
         count = cards.size
         weight = symbolToCars.keys.last().number

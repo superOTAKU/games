@@ -11,10 +11,10 @@ class TupleWithSingle(cards: Set<Card>): PlayCard(1, cards) {
 
     init {
         val symbolToCards = cards.groupBy { it.symbol }
-        assert(symbolToCards.size == 2)
+        require(symbolToCards.size == 2)
         val singles = symbolToCards.filter { it.value.size == 1 }
         val tuples = symbolToCards.filter { it.value.size == 3 }
-        assert(singles.size == 1 && tuples.size == 1)
+        require(singles.size == 1 && tuples.size == 1)
         weight = tuples.keys.first().weight
     }
 

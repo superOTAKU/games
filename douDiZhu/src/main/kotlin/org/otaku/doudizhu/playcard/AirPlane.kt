@@ -11,11 +11,11 @@ class AirPlane(cards: Set<Card>): PlayCard(1, cards) {
     private var weight = 0
     init {
         //不能包含2，大小王
-        assert(cards.none { it.symbol.number < 0 })
+        require(cards.none { it.symbol.number < 0 })
         val symbolToCards = TreeMap<CardSymbol, MutableList<Card>>(compareBy { it.number })
         cards.groupByTo(symbolToCards) { it.symbol }
-        assert(symbolToCards.size >= 2 && symbolToCards.values.all { it.size == 3 })
-        assert(PlayCardUtil.isSymbolsOrder(symbolToCards.keys))
+        require(symbolToCards.size >= 2 && symbolToCards.values.all { it.size == 3 })
+        require(PlayCardUtil.isSymbolsOrder(symbolToCards.keys))
         count = symbolToCards.size
         weight = symbolToCards.keys.maxOf { it.number }
     }

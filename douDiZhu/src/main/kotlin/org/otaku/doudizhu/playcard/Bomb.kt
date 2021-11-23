@@ -7,8 +7,8 @@ class Bomb(cards: Set<Card>): PlayCard(2, cards) {
     private var weight = 0
 
     init {
-        assert(cards.size == 4)
-        assert(cards.map { it.symbol }.toSet().size == 1)
+        require(cards.size == 4)
+        require(cards.map { it.symbol }.toSet().size == 1)
         weight = cards.first().symbol.weight
     }
 

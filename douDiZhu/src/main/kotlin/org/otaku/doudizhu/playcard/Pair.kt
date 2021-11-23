@@ -10,7 +10,7 @@ class Pair(cards: Set<Card>): PlayCard(1, cards) {
 
     init {
         //只有两张牌，标志相同
-        assert(cards.size == 2 && cards.groupBy { it.symbol }.size == 2)
+        require(cards.size == 2 && cards.groupBy { it.symbol }.size == 2)
     }
 
     override fun isSameCardType(other: PlayCard): Boolean {

@@ -11,13 +11,13 @@ class ContinuePairs(cards: Set<Card>): PlayCard(1, cards) {
     private var weight = 0
     init {
         //不能包含2，大小王
-        assert(cards.none { it.symbol.number < 0 })
+        require(cards.none { it.symbol.number < 0 })
         val symbolToCards = TreeMap<CardSymbol, MutableList<Card>>(compareBy { it.number })
         cards.groupByTo(symbolToCards) { it.symbol }
         //连队至少3对
-        assert(symbolToCards.size >= 3 && symbolToCards.values.all { it.size == 2 })
+        require(symbolToCards.size >= 3 && symbolToCards.values.all { it.size == 2 })
         //连队必须按顺序
-        assert(PlayCardUtil.isSymbolsOrder(symbolToCards.keys))
+        require(PlayCardUtil.isSymbolsOrder(symbolToCards.keys))
         count = symbolToCards.size
         weight = symbolToCards.keys.maxOf { it.number }
     }

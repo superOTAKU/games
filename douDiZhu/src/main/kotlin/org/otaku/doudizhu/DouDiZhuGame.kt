@@ -26,6 +26,7 @@ class DouDiZhuGame {
     private val votes = HashMap<Int, Vote>()
     //投票次数，轮完一次不能再投，投了3分立刻成为地主
     private var voteTimes = 0
+    private var lastPlay: PlayCard? = null
 
     //发牌，发完牌进入抢地主环节
     fun dealCards() {
@@ -89,7 +90,34 @@ class DouDiZhuGame {
      * @param cardIdxList 出那几张牌
      */
     fun playCard(playerNo: Int, cardIdxList: List<Int>) {
+        checkStatus(GameStatus.PLAYING)
+        checkRound(playerNo)
+        val player = players[playerNo]
+        player.playCard(cardIdxList)
+        if (player.isWin()) {
+            status = if (player.getRole() == PlayerRole.FARMER) GameStatus.FARMER_WIN else GameStatus.LANDLORD_WIN
+            return
+        }
+        nextRound()
+    }
 
+    internal fun canPlay(playCard: PlayCard): Boolean {
+        if (lastPlay == null) {
+            return true
+        }
+        val lastPlaySafe = requireNotNull(lastPlay)
+        if (lastPlaySafe.priority < playCard.priority) {
+            lastPlay = playCard
+            return true
+        }
+        if (!lastPlaySafe.isComparableTo(playCard)) {
+            return false
+        }
+        if (lastPlaySafe < playCard) {
+            lastPlay = playCard
+            return true
+        }
+        return false
     }
 
     private fun checkRound(playerNo: Int) {
