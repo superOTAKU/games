@@ -20,4 +20,5 @@ class Bomb(cards: Set<Card>): PlayCard(2, cards) {
         val otherP = other as Bomb
         return weight - otherP.weight
     }
+
 }
