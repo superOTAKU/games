@@ -1,7 +1,6 @@
 package org.otaku.doudizhu
 
 import java.lang.IllegalStateException
-import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
